@@ -1,3 +1,5 @@
+from doubly_linked_list import DoublyLinkedList
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +9,9 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.storage = DoublyLinkedList()
+        self.cache = {}
+        self.limit = limit
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,8 +21,14 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
-
+        if key not in self.cache:
+            return
+        else:
+            print('IN CACHE', self.cache)
+            # print('In DLL', self.storage)
+            # current = self.cache[key]
+            self.storage.move_to_front(self.cache[key])
+            return self.cache[key].value[key]
     """
     Adds the given key-value pair to the cache. The newly-
     added pair should be considered the most-recently used
@@ -30,4 +40,21 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        # print('KEY', key)
+        # print('VALUE', value)
+        if self.storage.length < self.limit:
+            if key not in self.cache:
+                # print('key in loop', key, value)
+                self.storage.add_to_head({key: value})
+                self.cache[key] = self.storage.head
+            else:
+                print('key in cache', self.cache[key])
+                self.storage.move_to_front(self.cache[key])              
+        else:
+            self.storage.delete(self.cache[list(self.cache)[len(self.cache) - 1]])
+            self.cache.popitem()
+        print('In DLL', self.storage)
+
+
+
+        

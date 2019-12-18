@@ -8,6 +8,9 @@ class ListNode:
         self.prev = prev
         self.next = next
 
+    def __repr__(self):
+        return f'{self.value}'
+
     """Wrap the given value in a ListNode and insert it
     after this node. Note that this node could already
     have a next node it is point to."""
@@ -49,25 +52,69 @@ class DoublyLinkedList:
         return self.length
 
     def add_to_head(self, value):
-        pass
+        self.length += 1
+        new_node = ListNode(value, None, None)
+
+        if not self.head and not self.tail:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+        
+    def __repr__(self):
+        return f'{self.head}, {self.tail}'
+
+
+
 
     def remove_from_head(self):
-        pass
+        if self.length == 0:
+            return
+        else:
+            value = self.head.value
+            self.delete(self.head)
+            return value
 
     def add_to_tail(self, value):
         pass
 
     def remove_from_tail(self):
-        pass
+        if self.length == 0:
+            return
+        else:
+            value = self.tail.value
+            self.delete(self.tail)
+            return value
 
     def move_to_front(self, node):
-        pass
+        if node is self.head:
+            return
+        else:
+            value = node.value
+            self.delete(node)
+            self.add_to_head(value)
 
     def move_to_end(self, node):
         pass
 
     def delete(self, node):
-        pass
+        if not self.head or self.tail:
+            return
+        self.length -= 1
+        if self.head == self.tail:
+            self.head = None
+            self.tail = None
+        elif self.head == node:
+            self.head = node.next
+            node.delete()
+        elif self.tail == node:
+            self.tail = node.prev
+            node.delete()
+        else:
+            node.delete()
+
 
     def get_max(self):
         pass
