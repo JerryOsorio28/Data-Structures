@@ -12,6 +12,7 @@ class LRUCache:
         self.storage = DoublyLinkedList()
         self.cache = {}
         self.limit = limit
+        self.size = 0
 
     """
     Retrieves the value associated with the given key. Also
@@ -21,14 +22,18 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        if key not in self.cache:
-            return
+        print('In CACHE from GET', self.cache.keys())
+        #check if key is in cache
+        if key in self.cache:
+            #grabs the node in a variable (easier read)
+            node = self.cache[key]
+            #moves the target to the tail of our storage
+            self.storage.move_to_end(node)
+            #returns the value of the node
+            print('TAIL', self.storage.tail.value[0])
+            return node.value[1]
         else:
-            print('IN CACHE', self.cache)
-            # print('In DLL', self.storage)
-            # current = self.cache[key]
-            self.storage.move_to_front(self.cache[key])
-            return self.cache[key].value[key]
+            return None
     """
     Adds the given key-value pair to the cache. The newly-
     added pair should be considered the most-recently used
@@ -40,20 +45,33 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        # print('KEY', key)
-        # print('VALUE', value)
-        if self.storage.length < self.limit:
-            if key not in self.cache:
-                # print('key in loop', key, value)
-                self.storage.add_to_head({key: value})
-                self.cache[key] = self.storage.head
-            else:
-                print('key in cache', self.cache[key])
-                self.storage.move_to_front(self.cache[key])              
-        else:
-            self.storage.delete(self.cache[list(self.cache)[len(self.cache) - 1]])
-            self.cache.popitem()
-        print('In DLL', self.storage)
+        print('In CACHE', self.cache.keys())
+        #checks of key exists in cache
+        if key in self.cache:
+            #grabs exisiting key in cache
+            node = self.cache[key]
+            #replaces exisiting key value with current (overwrites)
+            node.value = (key, value)
+            #moves overwritten node to the end of the linked list (our tail)
+            self.storage.move_to_end(node)
+            return
+        #checks if LL reached it's limit in length 
+        if self.size == self.limit:
+            #if it did, deletes the last node used in cache (the head)
+            del self.cache[self.storage.head.value[0]]
+            #deletes it also from the storage
+            self.storage.remove_from_head()
+            #decreases cache length manually by 1
+            self.size -= 1
+            # print('IN CACHE', self.cache)
+        #if the LL size is NOT equal to limit, adds the node to the tail of LL
+        self.storage.add_to_tail((key, value))
+        #sets the cache key to be equal to the storage's tail
+        self.cache[key] = self.storage.tail
+        #increases size by 1
+        self.size += 1
+
+       
 
 
 
