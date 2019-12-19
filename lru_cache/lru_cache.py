@@ -45,7 +45,7 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        print('In CACHE', self.cache.keys())
+        print('In CACHE', self.cache)
         #checks of key exists in cache
         if key in self.cache:
             #grabs exisiting key in cache
@@ -63,7 +63,6 @@ class LRUCache:
             self.storage.remove_from_head()
             #decreases cache length manually by 1
             self.size -= 1
-            # print('IN CACHE', self.cache)
         #if the LL size is NOT equal to limit, adds the node to the tail of LL
         self.storage.add_to_tail((key, value))
         #sets the cache key to be equal to the storage's tail
