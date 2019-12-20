@@ -1,7 +1,7 @@
-# import sys
-# sys.path.append('./queue_and_stack')
-# from dll_queue import Queue
-# from dll_stack import Stack
+import sys
+sys.path.append('./queue_and_stack')
+from dll_queue import Queue
+from dll_stack import Stack
 
 
 class BinarySearchTree:
@@ -17,18 +17,15 @@ class BinarySearchTree:
     def insert(self, value):
 
         #if value is less than self.value(root), make new tree node if empty, else keep going (recursion)
-        # print('value', value, 'self.value', self.value)
         if value < self.value and self.left is None:
             new_node = BinarySearchTree(value)
             self.left = new_node
-            # print(f'to the left of {self.value} is {value}')
         elif value < self.value and self.left is not None:
             self.left.insert(value)
         # if value is greater than self.value(root), make a new tree node if empty, else keep going(recursion)
         elif value >= self.value and self.right is None:
             new_node = BinarySearchTree(value)
             self.right = new_node
-            # print(f'to the right of {self.value} is {value}')
         elif value >= self.value and self.right is not None:
             self.right.insert(value)
     # Return True if the tree contains the value
@@ -38,7 +35,6 @@ class BinarySearchTree:
     #else go left/right based on smaller or bigger
         if target is self.value:
             return True
-            # print('TARGET', target, 'SELF VALUE', self.value)
         elif target < self.value:
             if self.left is None:
                 return False
@@ -67,24 +63,36 @@ class BinarySearchTree:
             self.left.for_each(cb)
         if self.right is not None:
             self.right.for_each(cb)
-        
-
     # DAY 2 Project -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        #when node == None, return it. 
+        if node is None:
+            return
+        #checks if there's a node on the left, if so...
+        if self.left is not None:
+            #run's recursive function again
+            self.left.in_order_print(node)
+        print(self.value)
+        #checks if there's a node on the right, if so... 
+        if self.right is not None:
+            #run's recursive function again
+            self.right.in_order_print(node)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
         pass
 
+
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+
+        new_stack = Stack()
+        
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
