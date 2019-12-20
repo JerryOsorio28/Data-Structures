@@ -116,13 +116,13 @@ class DoublyLinkedList:
         if not self.head and not self.tail:
             return
         self.length -= 1
-        if self.head == self.tail:
+        if self.head is self.tail:
             self.head = None
             self.tail = None
-        elif self.head == node:
+        elif self.head is node:
             self.head = node.next
             node.delete()
-        elif self.tail == node:
+        elif self.tail is node:
             self.tail = node.prev
             node.delete()
         else:
