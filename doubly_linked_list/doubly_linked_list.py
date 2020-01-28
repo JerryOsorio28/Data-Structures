@@ -140,22 +140,21 @@ class DoublyLinkedList:
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
     def delete(self, node):
+        if not self.head and not self.tail:
+            return
         # shortens the length of our DLL by 1
         self.length -= 1
-        # checks if there is any values in our DLL
-        if not self.head and not self.tail:
-            print('There is no value to delete')
         # checks if there is only 1 node in our DLL and set's it to be None
-        if self.head == self.tail:
+        if self.head is self.tail:
             self.head = None
             self.tail = None
         # checks if there is a head, if there is, it assigns the the head's next to be the new head and removes it
-        elif self.head == node:
-            self.head = self.head.next
+        elif self.head is node:
+            self.head = node.next
             node.delete()
         # checks if there is a tail, if there is, it assigns the the tail's next to be the new tail and removes it 
-        elif self.tail == node:
-            self.tail = self.tail.next
+        elif self.tail is node:
+            self.tail = node.prev
             node.delete()
         else:
             node.delete() 

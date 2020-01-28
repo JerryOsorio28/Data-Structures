@@ -18,11 +18,18 @@ class CacheTests(unittest.TestCase):
 
     def test_cache_insertion_and_retrieval(self):
         self.cache.set('item1', 'a')
+        # keys = list(self.cache.keys())
+        # for key in keys:
+        #     print('KEYS', self.cache[key])
         self.cache.set('item2', 'b')
+        # print('TEST', self.cache)
         self.cache.set('item3', 'c')
+        # print('TEST', self.cache)
 
         self.assertEqual(self.cache.get('item1'), 'a')
+        # print('TEST', self.cache)
         self.cache.set('item4', 'd')
+        # print('TEST', self.cache)
 
         self.assertEqual(self.cache.get('item1'), 'a')
         self.assertEqual(self.cache.get('item3'), 'c')
