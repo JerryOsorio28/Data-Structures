@@ -13,6 +13,9 @@ class LRUCache:
         self.cache = {}
         self.limit = limit
         self.size = 0
+    
+    def __repr__(self):
+        return f'CACHE: {self.cache}'
 
     """
     Retrieves the value associated with the given key. Also
@@ -22,18 +25,15 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        print('In CACHE from GET', self.cache.keys())
-        #check if key is in cache
+        # we first check if the key is in the cache
         if key in self.cache:
-            #grabs the node in a variable (easier read)
+            # if it is we hold the key in a variable
             node = self.cache[key]
-            #moves the target to the tail of our storage
-            self.storage.move_to_end(node)
-            #returns the value of the node
-            print('TAIL', self.storage.tail.value[0])
+            # we move the key to the front of the cache
+            self.storage.move_to_front(node)
+            # and we return the value
             return node.value[1]
-        else:
-            return None
+        return None
     """
     Adds the given key-value pair to the cache. The newly-
     added pair should be considered the most-recently used
@@ -45,33 +45,39 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        print('In CACHE', self.cache)
-        #checks of key exists in cache
-        if key in self.cache:
-            #grabs exisiting key in cache
+        # first we check if the key is in the cache
+        if key in self.cache.keys():
+            # if it does, we trap the node in a variable
             node = self.cache[key]
-            #replaces exisiting key value with current (overwrites)
+            # we update it's value to be the key/value paired passed in as a parameter
             node.value = (key, value)
-            #moves overwritten node to the end of the linked list (our tail)
-            self.storage.move_to_end(node)
+            # we move the given node to the front
+            self.storage.move_to_front(node)
+            # we return to get out of the if statement
             return
-        #checks if LL reached it's limit in length 
+        # we need to check if cache is at max capacity
         if self.size == self.limit:
-            #if it did, deletes the last node used in cache (the head)
-            del self.cache[self.storage.head.value[0]]
-            #deletes it also from the storage
-            self.storage.remove_from_head()
-            #decreases cache length manually by 1
+            # so we first delete the node from the cache
+            del self.cache[self.storage.tail.value[0]]
+            # we then remove that last item on our LL as well
+            self.storage.remove_from_tail()
+            # we need to manually take care of our cache size as we add and delete
             self.size -= 1
-        #if the LL size is NOT equal to limit, adds the node to the tail of LL
-        self.storage.add_to_tail((key, value))
-        #sets the cache key to be equal to the storage's tail
-        self.cache[key] = self.storage.tail
-        #increases size by 1
+        # we add the new node to the head of our LL
+        self.storage.add_to_head((key, value))
+        # we need to set our new node to be the new head
+        self.cache[key] = self.storage.head
+        # increase size by 1
         self.size += 1
 
-       
-
+# if __name__ == '__main__':
+#     lru_cache = LRUCache(3)
+#     lru_cache.set('item1', 'a')
+#     lru_cache.set('item2', 'b')
+#     lru_cache.set('item3', 'c')
+#     lru_cache.set('item4', 'g')
+#     print(lru_cache.get('item2'))
+#     print(lru_cache)
 
 
         
