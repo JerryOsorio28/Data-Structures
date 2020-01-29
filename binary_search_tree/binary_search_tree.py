@@ -44,16 +44,52 @@ class BinarySearchTree:
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        # we check if the target is equal to the current value if it is...
+        if target == self.value:
+            # we return
+            return True
+        # we check if the target value is greater than the current value, if it is...
+        if target > self.value:
+            # we check if there is anything on the right side of the current value..
+            if self.right is None:
+            # if there is not, we need to return an error saying there is no value equal to target
+                return False
+            # if there is, we call the function recursively on the right node of the current value
+            else:
+                return self.right.contains(target)
+        # if it is less than the current value
+        else:
+            # we check if there is anything on the left side of the current value...
+            if self.left is None:
+                # if there is not, we need to return an error saying there is no value equal to target
+                return False
+            # if there is, we call the function recursively on the left node of the current value
+            else:
+                return self.left.contains(target)
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        # we check if there is anything on the right side of the current node, if it is not...
+        if self.right is None:
+            # we return the current node
+            return self.value
+        # else, we call the function recursively on the current's right node.
+        else:
+            return self.right.get_max()
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        # The 'CB' means all the methods you can use within the Binary Search Tree class.
+        cb(self.value)
+        # so whenever the right side of our current node is NOT empty...
+        if self.right is not None:
+            # we call our for each function recursively with any other method within our class.
+            self.right.for_each(cb)
+        # we would also need to check the same thing for the left side as well.
+        if self.left is not None:
+            self.left.for_each(cb)
+
 
     # DAY 2 Project -----------------------
 
@@ -83,9 +119,10 @@ class BinarySearchTree:
     def post_order_dft(self, node):
         pass
 
-if __name__ == '__main__':
-    bst = BinarySearchTree(5)
-    bst.insert(2)
-    bst.insert(3)
-    bst.insert(7)
-    bst.insert(6)
+# if __name__ == '__main__':
+#     bst = BinarySearchTree(5)
+#     bst.insert(2)
+#     bst.insert(3)
+#     bst.insert(7)
+#     bst.insert(6)
+#     bst.get_max()
