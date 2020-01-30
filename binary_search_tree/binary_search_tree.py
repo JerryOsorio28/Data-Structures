@@ -92,28 +92,41 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
         # For depth-first problems, we need to use a Stack.
-        # Rules of a queue is FILO
-
-        # first we need to check if there is anything on the left side of the current node, if there isn't...
-            # return
-        # else if there is something on the left side...
-                # we want to call the function recursively on that node
-
+        # Rules of a stack is FILO
+        # first we need to check if there is anything on the left side of the current node
+        if node.left:
+            #if there is, we want to call the function recursively on that node
+            node.left.in_order_print(node.left)
         # we want to print the current node
-
-        # then we need to check if there is anything on the right side of the current node, if there isn't...
-            # return
-        # else if there is something on the right side...
-                # we want to call the function recursively on that node
-        
+        print(node)
+        if node.right:
+            #if there is, we want to call the function recursively on that node
+            node.right.in_order_print(node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        # For breadth-first problems, we need to use a Queue.
-        pass
+        # For depth-first problems, we need to use a queue.
+        # Rules of a queue is FILO
+        # Make the queue
+        queue = Queue()
+        # we add the root to the queue
+        queue.enqueue(node)
+        # while there is values in the queue
+        while queue.size > 0:
+            # we dequeue the root out of the queue ans save it in temp
+            temp = queue.dequeue()
+            # we check if there is anything on the left side of the current node, if there is...
+            if temp.left:
+                # add to the queue
+                queue.enqueue(temp.left)
+            # we check if there is anything on the right side of the current node, if there is...
+            if temp.right:
+                # add to the queue
+                queue.enqueue(temp.right)
+            # we print the current node
+            print(temp)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
@@ -156,5 +169,5 @@ if __name__ == '__main__':
     bst.insert(3)
     bst.insert(7)
     bst.insert(6)
-    print(bst)
-    bst.in_order_print(bst)
+    # print(bst)
+    # bst.in_order_print(bst)
