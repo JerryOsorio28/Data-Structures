@@ -15,7 +15,7 @@ class BinarySearchTree:
     
     def __repr__(self):
         # return f"{self.value}"
-        return f"""{self.value} {self.left} {self.right}"""
+        return f"{self.value}"
 
     # Insert the given value into the tree
     def insert(self, value):
@@ -97,15 +97,29 @@ class BinarySearchTree:
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
         pass
+        # For depth-first problems, we need to use a Stack.
+        # Rules of a queue is FILO
+        # first we need to check if there is anything on the left side of the current node, if there isn't...
+            # we check if there is anything on the right side of the current node, if there isn't...
+                # we need to call the function on the previous n
+            # if there is..
+                # we want to print the current node
+                # we want to call the function recursively on that node
+        # if there is something on the left side...
+                # we want to print the current node
+                # we want to call the function recursively on that node
+        
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
+        # For breadth-first problems, we need to use a Queue.
         pass
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
+        # For depth-first problems, we need to use a Stack.
         pass
 
     # STRETCH Goals -------------------------
@@ -119,10 +133,11 @@ class BinarySearchTree:
     def post_order_dft(self, node):
         pass
 
-# if __name__ == '__main__':
-#     bst = BinarySearchTree(5)
-#     bst.insert(2)
-#     bst.insert(3)
-#     bst.insert(7)
-#     bst.insert(6)
-#     bst.get_max()
+if __name__ == '__main__':
+    bst = BinarySearchTree(4)
+    bst.insert(2)
+    bst.insert(3)
+    bst.insert(7)
+    bst.insert(6)
+    print(bst)
+    bst.in_order_print(bst)
