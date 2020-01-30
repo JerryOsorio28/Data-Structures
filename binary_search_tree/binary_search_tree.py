@@ -157,15 +157,16 @@ class BinarySearchTree:
 
     # Print In-order recursive DFT
     def pre_order_dft(self, node):
+        # we first check if the node is none, and return if it is
         if node is None:
             return
+        # before we move left or right, we print the current node
         print(node)
-        # we check if left of node, if there is a node...
+        # we check if left of node exists, if there is a node...
         if node.left:
-            # before we move left, we print the current node
             # we call recursion in that node..
             node.left.pre_order_dft(node.left)
-        # we check if right of node, if there is a node...
+        # we check if right of node exists, if there is a node...
         if node.right: 
             # we call recursion in that node..
             node.right.pre_order_dft(node.right)
@@ -173,7 +174,19 @@ class BinarySearchTree:
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        pass
+        # we first check if the node is none, and return if it is
+        if node is None:
+            return
+        # we check if left of node exists, if there is a node...
+        if node.left:
+            # we call recursion in that node..
+            node.left.post_order_dft(node.left)
+        # we check if right of node exists, if there is a node...
+        if node.right: 
+            # we call recursion in that node..
+            node.right.post_order_dft(node.right)
+        # after we check both left and right, we will print the current node.
+        print(node)
 
 if __name__ == '__main__':
     bst = BinarySearchTree(1)
@@ -184,4 +197,5 @@ if __name__ == '__main__':
     bst.insert(3)
     bst.insert(4)
     bst.insert(2)
-    bst.pre_order_dft(bst)
+    bst.post_order_dft(bst)
+    # "2\n4\n3\n6\n7\n5\n8\n1\n"
