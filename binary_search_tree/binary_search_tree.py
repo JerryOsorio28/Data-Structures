@@ -69,13 +69,9 @@ class BinarySearchTree:
 
     # Return the maximum value found in the tree
     def get_max(self):
-        # we check if there is anything on the right side of the current node, if it is not...
-        if self.right is None:
-            # we return the current node
-            return self.value
+        # we check if there is anything on the right side of the current node, if it is not, we return the current node..
         # else, we call the function recursively on the current's right node.
-        else:
-            return self.right.get_max()
+        return self.value if self.right == None else self.right.get_max()
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
@@ -83,11 +79,11 @@ class BinarySearchTree:
         # The 'CB' means all the methods you can use within the Binary Search Tree class.
         cb(self.value)
         # so whenever the right side of our current node is NOT empty...
-        if self.right is not None:
+        if self.right:
             # we call our for each function recursively with any other method within our class.
             self.right.for_each(cb)
         # we would also need to check the same thing for the left side as well.
-        if self.left is not None:
+        if self.left:
             self.left.for_each(cb)
 
 
@@ -99,14 +95,17 @@ class BinarySearchTree:
         pass
         # For depth-first problems, we need to use a Stack.
         # Rules of a queue is FILO
+
         # first we need to check if there is anything on the left side of the current node, if there isn't...
-            # we check if there is anything on the right side of the current node, if there isn't...
-                # we need to call the function on the previous n
-            # if there is..
-                # we want to print the current node
+            # return
+        # else if there is something on the left side...
                 # we want to call the function recursively on that node
-        # if there is something on the left side...
-                # we want to print the current node
+
+        # we want to print the current node
+
+        # then we need to check if there is anything on the right side of the current node, if there isn't...
+            # return
+        # else if there is something on the right side...
                 # we want to call the function recursively on that node
         
 
@@ -120,7 +119,25 @@ class BinarySearchTree:
     # in an iterative depth first traversal
     def dft_print(self, node):
         # For depth-first problems, we need to use a Stack.
-        pass
+        # Rules of a Stack is FILO
+        # Make the stack
+        stack = Stack()
+        # we add the root to the stack
+        stack.push(node)
+        # while there is values in the stack
+        while stack.size > 0:
+            # we pop the root out of the stack ans save it in temp
+            temp = stack.pop()
+            # we print the current node
+            print(temp)
+            # we check if there is anything on the left side of the current node, if there is...
+            if temp.left:
+                # add to the stack
+                stack.push(temp.left)
+            # we check if there is anything on the right side of the current node, if there is...
+            if temp.right:
+                # add to the stack
+                stack.push(temp.right)
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
